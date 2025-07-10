@@ -1,0 +1,14 @@
+[package]
+name = "proxy-yoink-er"
+version = "0.0.3-prototype"
+edition = "2024"
+
+[dependencies]
+clap = { version = "4.0", features = ["derive"] }
+regex = "1.0"
+reqwest = { version = "0.11", features = ["json"] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+tokio = { version = "1.0", features = ["full"] }
+base64 = "0.21"
+serde_yaml = "0.9"
