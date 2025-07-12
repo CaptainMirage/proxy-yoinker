@@ -1,17 +1,20 @@
-use clap::Parser;
 use std::sync::atomic::{AtomicUsize, Ordering};
 use std::sync::Arc;
-use std::time::Instant;
 use tokio::sync::Semaphore;
 use std::collections::HashSet;
+use reqwest::Client;
+#[allow(unused_imports)] // for the serilize stuff
+use serde::{Deserialize, Serialize};
+use std::time::{Duration, Instant};
+use clap::Parser;
 
-// Import from your modules
-use crate::config::*;
-use crate::models::*;
-use crate::parsers::*;
-use crate::network::*;
-use crate::io::*;
-use crate::utils::*;
+use proxy_yoink_er::config::{URL_TIMEOUT, NODE_TIMEOUT, Args};
+use proxy_yoink_er::models::RegexPatterns;
+use proxy_yoink_er::parsers::parse_subscription_safe;
+use proxy_yoink_er::network::{http_check, node_http_check, fetch_body};
+use proxy_yoink_er::io::{write_node_report, write_url_report, gather_text};
+use proxy_yoink_er::utils::{estimate_total_time, format_duration};
+use proxy_yoink_er::discovery::extractor::extract_urls;
 
 
 #[tokio::main]
